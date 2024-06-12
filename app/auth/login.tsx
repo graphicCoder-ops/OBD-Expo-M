@@ -1,8 +1,7 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Link, useRouter } from 'expo-router';
-
-const API= 'http://52.91.130.47:8080';
+import { API } from '@/constants/Utility';
 
 export default function login() {
     const [username, setUsername] = useState('');
@@ -21,6 +20,7 @@ export default function login() {
           }),
         };
       try {
+        console.log(API);
           const response = await fetch(API + '/auth/login',requestOptions);
         
         if(response.ok){
