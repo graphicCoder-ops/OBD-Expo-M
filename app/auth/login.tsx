@@ -39,7 +39,7 @@ export default function login() {
       }
     };
     const handleRegisterPage = () =>{
-      console.log("works register page!");
+      router.push("auth/register");
     };
   
     return (
@@ -59,10 +59,7 @@ export default function login() {
         />
         <Button title="Login" onPress={handleLogin} />
         <Text>OR</Text>
-        <Link href="auth/register" asChild>
         <Button title="Register" onPress={handleRegisterPage} />
-        </Link>
-        
       </View>
     );
 }
