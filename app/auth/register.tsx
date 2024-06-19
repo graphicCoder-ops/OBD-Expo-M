@@ -2,6 +2,7 @@ import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import { API } from '@/constants/Utility';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function register() {
   const [username, setUsername] = useState('');
@@ -29,8 +30,12 @@ export default function register() {
         
 
       if(response.ok){
-        
         router.push("(tabs)");
+        try {
+          await AsyncStorage.setItem('isLoggedIn', 'true');
+        } catch (e) {
+          console.error("Couldn't set isLoggedIn to True");
+        }
       }else{
         Alert.alert('Error!!', 'Please enter same password', [
           {

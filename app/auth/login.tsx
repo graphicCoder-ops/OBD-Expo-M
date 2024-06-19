@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Link, useRouter } from 'expo-router';
 import { API } from '@/constants/Utility';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function login() {
     const [username, setUsername] = useState('');
@@ -26,6 +27,11 @@ export default function login() {
         if(response.ok){
           
           router.push("(tabs)");
+          try {
+            await AsyncStorage.setItem('isLoggedIn', 'true');
+          } catch (e) {
+            console.error("Couldn't set isLoggedIn to True");
+          }
           // react-native way
           // navigation.reset({
           // index: 0,
