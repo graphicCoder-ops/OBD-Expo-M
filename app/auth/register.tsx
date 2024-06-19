@@ -26,15 +26,15 @@ export default function register() {
     try {
       console.log(API);
         const response = await fetch(API + '/auth/register',requestOptions);
-      
+        
+
       if(response.ok){
         
         router.push("(tabs)");
       }else{
-        Alert.alert('Error!!', 'Username already exist', [
+        Alert.alert('Error!!', 'Please enter same password', [
           {
             text: 'Cancel',
-            
           },
           {text: 'OK'},
         ]);
@@ -47,11 +47,6 @@ export default function register() {
    };
     
    
-
-  
-  const confirmpassword = () =>{
-
-  }
 
 
   return (
