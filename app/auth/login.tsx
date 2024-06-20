@@ -1,4 +1,5 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View } from '@/components/Themed';
 import React, { useState } from 'react'
 import { Link, useRouter } from 'expo-router';
 import { API } from '@/constants/Utility';
@@ -50,6 +51,7 @@ export default function login() {
   
     return (
       <View style={styles.container}>
+        <Text style={styles.heading}>Login</Text>
         <TextInput
           placeholder="Username"
           value={username}
@@ -63,26 +65,44 @@ export default function login() {
           secureTextEntry
           style={styles.input}
         />
-        <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}><Text>Login</Text></TouchableOpacity>
         <Text>OR</Text>
-        <Button title="Register" onPress={handleRegisterPage} />
+        <TouchableOpacity style={styles.button} onPress={handleRegisterPage}><Text>Register</Text></TouchableOpacity>
       </View>
     );
 }
 
 const styles = StyleSheet.create({
+  heading:{
+    fontSize:30,
+    marginBottom:40
+  },
     container: {
       flex: 1,
-      backgroundColor:'white',
       justifyContent: 'center',
       alignItems: 'center',
       padding: 20,
     },
     input: {
+      color:'white',
       width: '100%',
       margin: 10,
+      borderColor:'#4C5462',
+      borderBottomWidth:2,
+      borderTopWidth:2,
+      borderRightWidth:2,
+      borderLeftWidth:2,
       padding: 10,
       borderWidth: 1,
       borderRadius: 5,
     },
+    button:{
+      margin:10,
+      borderRadius:6,
+      backgroundColor:'#4B70F5',
+      padding:10,
+      display:'flex',
+      alignItems:'center',
+      width:100
+    }
   });
