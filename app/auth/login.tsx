@@ -1,4 +1,4 @@
-import { Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import React, { useState } from 'react'
 import { Link, useRouter } from 'expo-router';
@@ -39,6 +39,10 @@ export default function login() {
           // routes: [{ name: 'Dashboard' }],
           // });
         }else{
+          const err = await response.text();
+          Alert.alert('Login Failed', err, [
+            {text: 'OK'},
+          ]);
             console.log("Login Failed with status: " + await response.status);
         }
       } catch (error) {
