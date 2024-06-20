@@ -1,8 +1,10 @@
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, Button, StyleSheet,  TextInput, TouchableOpacity,  } from 'react-native'
 import React, { useState } from 'react'
+import { Text, View } from '@/components/Themed';
 import { useRouter } from 'expo-router';
 import { API } from '@/constants/Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function register() {
   const [username, setUsername] = useState('');
@@ -30,20 +32,17 @@ export default function register() {
         
 
       if(response.ok){
-        router.push("(tabs)");
+        //router.push("(tabs)");
         try {
           await AsyncStorage.setItem('isLoggedIn', 'true');
         } catch (e) {
           console.error("Couldn't set isLoggedIn to True");
         }
       }else{
-        Alert.alert('Error!!', 'Please enter same password', [
-          {
-            text: 'Cancel',
-          },
+        const err = await response.text();
+        Alert.alert('Login Failed', err, [
           {text: 'OK'},
-        ]);
-    
+          ]);
           console.log("Login Failed with status: " + await response.status);
       }
     } catch (error) {
@@ -56,7 +55,7 @@ export default function register() {
 
   return (
     <View style={styles.container}>
-      
+        <Text style={styles.heading}>Register</Text>
         <TextInput
           placeholder="Username"
           value={username}
@@ -77,7 +76,7 @@ export default function register() {
           secureTextEntry
           style={styles.input}
         />
-        <Button title="Register" onPress={handleRegisterPage} />
+        <TouchableOpacity style={styles.button} onPress={handleRegisterPage}><Text>Register</Text></TouchableOpacity>
     </View>
   )
 }
@@ -85,16 +84,39 @@ export default function register() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white',
         justifyContent: 'center',
         alignItems: 'center',
+        padding:20,
+      },
+      heading:{
+        fontSize:30,
+        marginBottom:40,
+        top: -40,
+        
       },
       input: {
-        
-        width: '90%',
+        color:'white',
+        width: '100%',
         margin: 10,
+        borderColor:'#4C5462',
+        borderBottomWidth:2,
+        borderTopWidth:2,
+        borderRightWidth:2,
+        borderLeftWidth:2,
         padding: 10,
         borderWidth: 1,
         borderRadius: 5,
+        top: -40,
       },
+      button:{
+        margin:10,
+        borderRadius:6,
+        backgroundColor:'#4B70F5',
+        padding:10,
+        display:'flex',
+        alignItems:'center',
+        width:100,
+        top: -40,
+      }
 })
+
