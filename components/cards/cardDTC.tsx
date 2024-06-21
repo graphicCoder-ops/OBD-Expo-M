@@ -1,14 +1,29 @@
 import { View, Text } from '../Themed';
 import { StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardDTC = () => {
     const [dtcError , setDTCError] = useState(0);
-    const [strong,setString]=useState("w")
+    const [username,setUsername]=useState('');
+
+    const  getUsername = async ()=> {
+      try {
+        const dtcUsername = await AsyncStorage.getItem('username');
+        setUsername(dtcUsername as string);
+      } catch (e) {
+        console.error("Couldn't set isLoggedIn to True");
+      }
+    }
+    useEffect( ()=>{
+      getUsername();
+    })
+
+
   return (
     <View style={{flex:1, flexDirection:'row'}}>
-        <LinearGradient  style={dtcError==0?styles.container:styles.containerRED} colors={dtcError==0?['rgba(0,255,0,0.5)','rgba(0,255,0,0.1)']:['rgba(255,0,0,0.5)','rgba(255,0,0,0.1)']}>
+      <LinearGradient  style={dtcError==0?styles.container:styles.containerRED} colors={dtcError==0?['rgba(0,255,0,0.5)','rgba(0,255,0,0.1)']:['rgba(255,0,0,0.5)','rgba(255,0,0,0.1)']}>
       <Text style={styles.title}>{dtcError==0?'Your Car is Safe :)':'Your Car is UNSAFE!! D:'}</Text>
       <Text style={styles.info}>{'DTC Errors : ' + dtcError}</Text>
       </LinearGradient>
