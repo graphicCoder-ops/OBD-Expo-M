@@ -32,7 +32,7 @@ export default function register() {
         
 
       if(response.ok){
-        //router.push("(tabs)");
+        router.push("(tabs)");
         try {
           await AsyncStorage.setItem('isLoggedIn', 'true');
         } catch (e) {
@@ -76,7 +76,9 @@ export default function register() {
           secureTextEntry
           style={styles.input}
         />
-        <TouchableOpacity style={styles.button} onPress={handleRegisterPage}><Text>Register</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleRegisterPage}>
+          <Text>Register</Text>
+        </TouchableOpacity>
     </View>
   )
 }
