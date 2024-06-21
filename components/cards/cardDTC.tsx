@@ -36,7 +36,11 @@ const CardDTC = () => {
     }
     useEffect( ()=>{
       getUsername();
-      setInterval(fetchDTC,10000);
+      const fetchDTC10sec = setInterval(fetchDTC,10000);
+      return ()=>{
+        console.log("Component Unmounts");
+        clearInterval(fetchDTC10sec);
+      }
     })
 
 

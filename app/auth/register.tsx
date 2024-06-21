@@ -32,13 +32,15 @@ export default function register() {
         
 
       if(response.ok){
-        router.push("(tabs)");
         try {
           await AsyncStorage.setItem('isLoggedIn', 'true');
           await AsyncStorage.setItem('username', username.toLowerCase());
         } catch (e) {
           console.error("Couldn't set isLoggedIn to True");
         }
+        
+        router.push("(tabs)");
+        
       }else{
         const err = await response.text();
         Alert.alert('Login Failed', err, [

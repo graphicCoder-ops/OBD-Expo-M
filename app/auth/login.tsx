@@ -26,14 +26,14 @@ export default function login() {
           const response = await fetch(API + '/auth/login',requestOptions);
         
         if(response.ok){
-        
-          router.push("(tabs)");
           try {
             await AsyncStorage.setItem('isLoggedIn', 'true');
             await AsyncStorage.setItem('username', username.toLowerCase());
           } catch (e) {
             console.error("Couldn't set isLoggedIn to True");
           }
+          router.push("(tabs)");
+          
           // react-native way
           // navigation.reset({
           // index: 0,

@@ -18,7 +18,7 @@ export default function TabOneScreen() {
     try {
       const value = await AsyncStorage.getItem('isLoggedIn');
       if (value !== "true") {
-        setTimeout(() => router.push("auth/login"), 100);
+        setTimeout(() => router.replace("auth/login"), 10);
       }
       
     } catch (error) {
@@ -29,7 +29,8 @@ export default function TabOneScreen() {
   const logout = async ()=>{
     try {
       await AsyncStorage.setItem('isLoggedIn', 'false');
-      router.push("auth/login");
+      await AsyncStorage.removeItem('username');
+      router.replace("auth/login");
     } catch (e) {
       console.error("Couldn't set isLoggedIn to True");
     }
