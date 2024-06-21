@@ -30,7 +30,7 @@ export default function login() {
           router.push("(tabs)");
           try {
             await AsyncStorage.setItem('isLoggedIn', 'true');
-            await AsyncStorage.setItem('username', username);
+            await AsyncStorage.setItem('username', username.toLowerCase());
           } catch (e) {
             console.error("Couldn't set isLoggedIn to True");
           }

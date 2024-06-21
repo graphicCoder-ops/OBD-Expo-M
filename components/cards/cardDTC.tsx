@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API } from '@/constants/Utility';
 
 const CardDTC = () => {
     const [dtcError , setDTCError] = useState(0);
@@ -13,11 +14,29 @@ const CardDTC = () => {
         const dtcUsername = await AsyncStorage.getItem('username');
         setUsername(dtcUsername as string);
       } catch (e) {
-        console.error("Couldn't set isLoggedIn to True");
+        console.error("Couldn't get username");
       }
+    }
+
+    const fetchDTC = async ()=>{
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      };
+      const response = await fetch(API + "/dtc/get/" + username, requestOptions);
+      if(response.ok){
+        const DTCs = await response.json();
+        setDTCError(DTCs.DTCs.length);
+      }else{
+        console.log(await response.text())
+      }
+      
     }
     useEffect( ()=>{
       getUsername();
+      setInterval(fetchDTC,10000);
     })
 
 
