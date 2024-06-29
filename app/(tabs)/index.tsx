@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 import { useEffect } from 'react';
@@ -37,8 +37,18 @@ export default function TabOneScreen() {
   }
   return (
     <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
+      <CardDTC/>
       <CardDTC/>
       <TouchableOpacity style={styles.button} onPress={logout}><Text>Log out</Text></TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -46,7 +56,12 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'center'
+  },
+  scroll:{
+    flexGrow:1,
+    width:'100%',
+    alignItems:'center'
   },
   button:{
     margin:10,

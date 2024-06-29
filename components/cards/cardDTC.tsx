@@ -1,9 +1,10 @@
 import { View, Text } from '../Themed';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API } from '@/constants/Utility';
+import { API, seconds } from '@/constants/Utility';
+import { router } from 'expo-router';
 
 const CardDTC = () => {
     const [dtcError , setDTCError] = useState(0);
@@ -36,21 +37,24 @@ const CardDTC = () => {
     }
     useEffect( ()=>{
       getUsername();
-      const fetchDTC10sec = setInterval(fetchDTC,10000);
+      fetchDTC();
+      const fetchDTC10sec = setInterval(fetchDTC, seconds(10));
       return ()=>{
-        console.log("Component Unmounts");
+        console.log("Component Unmount/Refresh");
         clearInterval(fetchDTC10sec);
       }
     })
 
-
+    const openDTC = () =>{
+      router.push("modal");
+    }
   return (
-    <View style={{flex:1, flexDirection:'row'}}>
+    <TouchableOpacity onPress={openDTC} style={{flexDirection:'row'}}>
       <LinearGradient  style={dtcError==0?styles.container:styles.containerRED} colors={dtcError==0?['rgba(0,255,0,0.5)','rgba(0,255,0,0.1)']:['rgba(255,0,0,0.5)','rgba(255,0,0,0.1)']}>
       <Text style={styles.title}>{dtcError==0?'Your Car is Safe :)':'Your Car is UNSAFE!! D:'}</Text>
       <Text style={styles.info}>{'DTC Errors : ' + dtcError}</Text>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   )
 }
 

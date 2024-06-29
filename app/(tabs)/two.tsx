@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/components/Themed';
-import SensorData from '@/components/cards/sensorData';
+import SensorView from '@/components/cards/sensorData';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -38,7 +38,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      <SensorData/>
+      <SensorView/>
       <TouchableOpacity style={styles.button} onPress={logout}><Text>Log out</Text></TouchableOpacity>
     </View>
   );
